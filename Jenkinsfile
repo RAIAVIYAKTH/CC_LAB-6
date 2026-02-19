@@ -5,15 +5,13 @@ pipeline {
 
         stage('Checkout Code') {
             steps {
-                checkout scm
+                git branch: 'main', url: 'https://github.com/RAIAVIYAKTH/CC_LAB-6.git'
             }
         }
 
         stage('Build Backend Image') {
             steps {
-                sh '''
-                docker build -t backend-app backend
-                '''
+                sh 'docker build -t backend-app backend'
             }
         }
 
@@ -35,7 +33,9 @@ pipeline {
                 sh '''
                 docker rm -f nginx-lb || true
 
-                docker run -d --name nginx-lb -p 8081:80 --network lab-net nginx
+                docker run -d --name nginx-lb --network lab-net -p 8081:80 nginx
+
+                sleep 3
 
                 docker cp nginx/default.conf nginx-lb:/etc/nginx/conf.d/default.conf
 
@@ -46,6 +46,3 @@ pipeline {
 
     }
 }
-
-
-    
