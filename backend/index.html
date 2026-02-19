@@ -1,1 +1,18 @@
-<h1>Backend Container Running</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Backend</title>
+</head>
+<body>
+    <h2>Served by backend: <span id="id"></span></h2>
+
+    <script>
+        fetch('/hostname')
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById('id').innerText = data;
+            });
+    </script>
+</body>
+</html>
+

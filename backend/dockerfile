@@ -1,0 +1,11 @@
+FROM nginx:alpine
+
+COPY index.html /usr/share/nginx/html/index.html
+
+RUN echo "server { \
+    listen 80; \
+    location /hostname { \
+        default_type text/plain; \
+        return 200 \"$hostname\"; \
+    } \
+}" > /etc/nginx/conf.d/hostname.conf
